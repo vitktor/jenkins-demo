@@ -10,3 +10,6 @@ def test_add_negative():
 
 def test_add_wrong():
     assert add(2, 2) == 5
+
+def test_add_zero():
+    assert add(5, 0) == 5
