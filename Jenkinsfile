@@ -15,8 +15,7 @@ pipeline {
         stage('Run Tests') {
             steps {
                 sh '''
-                    .venv/bin/python -m pytest -v \
-                        --junitxml=results.xml || true
+                    .venv/bin/python -m pytest -v --junitxml=results.xml || true
                 '''
             }
         }
