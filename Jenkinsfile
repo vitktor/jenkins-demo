@@ -14,9 +14,18 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                sh '''
-                    .venv/bin/python -m pytest -v --junitxml=results.xml
-                '''
+                script {
+                    int exitCode = sh(
+                        script: '.venv/bin/python -m pytest -v --junitxml=results.xml',
+                        returnStatus: true
+                    )
+
+                    if (exitCode == 1) {
+                        unstable('Some pytest tests failed')
+                    } else if (exitCode != 0) {
+                        error("pytest execution failed with exit code ${exitCode}")
+                    }
+                }
             }
         }
     }
